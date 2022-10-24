@@ -1,0 +1,18 @@
+package Main;
+
+
+public class Recommendations {
+	
+	Sport muaythai = new Sport("Muay Thai");
+	Sport climbing = new Sport("Climbing");
+	Sport football = new Sport("Football");
+	Sport americanfootball = new Sport("American Football");
+	Sport rugby = new Sport("Rugby");
+	Sport swim = new Sport("Swimming");
+	Sport cycling = new Sport("Cycling");
+	Sport weightlifting = new Sport("Weight Lifting");
+	Sport boxing = new Sport("Boxing");
+	
+	
+	
+}
