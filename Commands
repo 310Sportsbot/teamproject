@@ -1,0 +1,176 @@
+package Main;
+
+import net.dv8tion.jda.api.EmbedBuilder;
+
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
+
+public class Commands extends ListenerAdapter{
+	
+	Useer user = new Useer();
+	
+	
+	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
+		
+		String args = event.getMessage().getContentRaw();
+		
+		switch (user.getStep()) {
+		case 0:
+			if (!event.getAuthor().isBot()) {
+			if (args.toLowerCase().contains("hello")||(args.toLowerCase().contains("hey")||(args.toLowerCase().contains("hi")))&&!event.getAuthor().isBot()) {
+				user.addStep();
+				EmbedBuilder greeting = new EmbedBuilder();
+				greeting.setTitle("⚽ Basic Information");
+				greeting.setDescription("Hello "+ event.getMember().getUser().getName()+"! I'm your Sports Coach! I'm going to help you to be more active and choose a sport! Please"
+						+ " follow the instructions since I'm not very good at understanding humans yet. Let's see what sport we can find for you! Are you short, average or tall? (If you want to reset the conversation type '~reset' at any time");
+				greeting.setColor(0x42b6f5);
+				event.getChannel().sendTyping();
+				event.getChannel().sendMessage(greeting.build()).queue();
+				user.setName(event.getMember().getUser().getName());
+				greeting.clear();
+				
+			}
+			else if (!args.toLowerCase().contains("hi")&&!args.toLowerCase().contains("hello")&&args.toLowerCase().contains("hey"))
+				event.getChannel().sendMessage("sorry, I only understand phrases containing hi, hey or hello").queue();
+			}
+			break;
+		case 1:
+			if (!event.getAuthor().isBot()) {
+			if ((args.toLowerCase().contains("short"))) {
+				user.setHeight("short");
+				event.getChannel().sendTyping();
+				user.addStep();
+				event.getChannel().sendMessage("Nice! And are you skinny, fit or chubby?").queue();
+				}
+			
+			else if ((args.toLowerCase().contains("average"))) {
+				user.setHeight("average");
+					event.getChannel().sendTyping();
+					user.addStep();
+					event.getChannel().sendMessage("I'm impressed! And are you skinny, fit or chubby?").queue();	
+				}
+
+			else if ((args.toLowerCase().contains("tall"))) {
+				user.setHeight("tall");
+				event.getChannel().sendTyping();
+				user.addStep();
+				event.getChannel().sendMessage("Awesome! And are you skinny, fit or chubby?").queue();
+				}
+			
+			else if (!(args.toLowerCase().contains("tall"))&&!(args.toLowerCase().contains("short")&&!(args.toLowerCase().contains("average"))))
+				event.getChannel().sendMessage("sorry, I didn't understand you...please specify if you are 'short', 'average' or 'tall'").queue();
+			}
+			break;
+		case 2:
+			if (!event.getAuthor().isBot()) {
+				
+			if ((args.toLowerCase().contains("skinny"))) {
+				user.setWeight("skinny");
+				user.addStep();
+				event.getChannel().sendMessage("Perfect! There are plenty of sports that you could do!").queue();
+				
+			}
+			
+			else if ((args.toLowerCase().contains("fit"))) {
+				user.setWeight("fit");
+				user.addStep();
+				event.getChannel().sendMessage("Cool! I have some ideas then!").queue();
+				
+			}
+			
+			else if ((args.toLowerCase().contains("chubby"))) {
+				user.setWeight("chubby");
+				user.addStep();
+				event.getChannel().sendMessage("Amazing! let's see what you could do!").queue();
+				}
+			else if(!(args.toLowerCase().contains("chubby")&&!(args.toLowerCase().contains("fit")&&(args.toLowerCase().contains("fit")))))
+					event.getChannel().sendMessage("sorry, I didn't understand you...please specify if you are 'chubby', 'fit' or 'skinny'").queue();
+			}
+			break;
+			
+		case 3:
+			event.getChannel().sendMessage("Maybe you should try "+user.getRecommendation(0).getName()+" ("
+					+ "type 'yes' if you like it and 'no' if you want another one)").queue();	
+			user.addStep();
+			break;
+			
+		case 4:
+			
+			 if (args.equalsIgnoreCase("yes")&&!event.getAuthor().isBot()) {
+				 	user.setSport(user.getRecommendation(0));
+					event.getChannel().sendMessage("Congratulations for choosing "+ user.getRecommendation(0).getName()+" "+user.getName()+"! Let's get working on your training routine!").queue();
+				}
+				else if (args.equalsIgnoreCase("no")&&!event.getAuthor().isBot()) { 
+					user.removeFirstRecommendation();
+					user.removeStep();
+					event.getChannel().sendMessage("mmmh... let's see").queue();
+					}
+			 break;	
+		}
+			
+		
+		if (user.getHeight()=="tall"&&user.getWeight()=="chubby") {
+			user.addRecommendation(new Sport("American Football"));
+			user.addRecommendation(new Sport("Rugby"));
+			user.addRecommendation(new Sport("Boxing"));
+			}
+		
+		else if (user.getHeight()=="tall"&&user.getWeight()=="fit") {
+			user.addRecommendation(new Sport("Basketball"));
+			user.addRecommendation(new Sport("Rugby"));
+			user.addRecommendation(new Sport("Boxing"));
+			}
+		
+		else if (user.getHeight()=="tall"&&user.getWeight()=="skinny") {
+			user.addRecommendation(new Sport("Climbing"));
+			user.addRecommendation(new Sport("Basketball"));
+			user.addRecommendation(new Sport("Baseball"));
+			}
+		
+		else if (user.getHeight()=="average"&&user.getWeight()=="chubby") {
+			user.addRecommendation(new Sport("Sumo"));
+			user.addRecommendation(new Sport("American Football"));
+			user.addRecommendation(new Sport("Boxing"));
+			}
+		
+		else if (user.getHeight()=="average"&&user.getWeight()=="fit") {
+			user.addRecommendation(new Sport("Football"));
+			user.addRecommendation(new Sport("Mixed Martial Arts"));
+			user.addRecommendation(new Sport("Snowboarding"));
+			}
+		
+		else if (user.getHeight()=="average"&&user.getWeight()=="skinny") {
+			user.addRecommendation(new Sport("Swimming"));
+			user.addRecommendation(new Sport("Football"));
+			user.addRecommendation(new Sport("Climbing"));
+			}
+		
+		else if (user.getHeight()=="short"&&user.getWeight()=="chubby") {
+			user.addRecommendation(new Sport("Weight Lifting"));
+			user.addRecommendation(new Sport("Baseball"));
+			user.addRecommendation(new Sport("Cycling"));
+			}
+		
+		else if (user.getHeight()=="short"&&user.getWeight()=="fit") {
+			user.addRecommendation(new Sport("Muay Thai"));
+			user.addRecommendation(new Sport("Skiing"));
+			user.addRecommendation(new Sport("Baseball"));
+			}
+		
+		else if (user.getHeight()=="short"&&user.getWeight()=="skinny") {
+			user.addRecommendation(new Sport("Marathons"));
+			user.addRecommendation(new Sport("Mountain Bike"));
+			user.addRecommendation(new Sport("Skiing"));
+			}
+		
+		if(args.equalsIgnoreCase("~reset")) {
+			user.getRecommendationList().clear();
+			user.setStep(0);
+		}
+			
+		
+		
+	}
+	
+}
+	
