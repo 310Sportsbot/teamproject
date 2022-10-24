@@ -1,0 +1,96 @@
+package Main;
+
+import java.util.ArrayList;
+
+public class Useer {
+	
+	private String height;
+	private String weight;
+	private String name;
+	private ArrayList<Sport> recom;
+	private int step;
+	private boolean picked;
+	private Sport sport;
+	
+	public Useer() {
+		step=0;
+		recom = new ArrayList<Sport>();
+		picked = false;
+	}
+	
+	public int getStep() {
+		return step;
+	}
+	
+	public void addStep() {
+		step++;
+	}
+	
+	public void removeStep() {
+		step--;
+	}
+	
+	public void setStep(int step) {
+		this.step=step;
+		
+	}
+	
+	public void setHeight(String height) {
+		
+			this.height=height;
+		
+	}
+	
+	public void setWeight(String weight) {
+		
+			this.weight=weight;
+
+	}
+	
+	public void setName(String name) {
+		this.name=name;
+	}
+	
+	public void addRecommendation(Sport recommendation) {
+			recom.add(recommendation);	
+	}
+	
+	public void removeFirstRecommendation() {
+		recom.remove(0);	
+}
+	public ArrayList<Sport> getRecommendationList() {
+		return recom;
+	}
+	
+	public String getHeight() {
+		return height;
+	}
+	
+	public String getWeight() {
+		return weight;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public Sport getRecommendation(int i) {
+			return recom.get(i);	
+	}
+	
+	public void setPicked(boolean picked) {
+		this.picked=picked;
+	}
+	
+	public boolean getPicked() {
+		return picked;
+	}
+	
+	public void setSport(Sport sport) {
+		this.sport=sport;
+	}
+	
+	public Sport getSport() {
+		return this.sport;
+	}
+}
