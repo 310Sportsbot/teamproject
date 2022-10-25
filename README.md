@@ -1,7 +1,7 @@
 The project consists of five classes:
 
 Botstartup:
-This class initializes the bot; it creates a JDA instance using the discord token, and iniziates a Listener to "listen" for messages sent within the chat.
+This class initializes the bot; it creates a JDA instance using the discord token, and iniziates a Listener.
 
 Commands:
 This class creates a new user which will store the information from the user and uses listener adapter to read events.
