@@ -8,7 +8,7 @@ import net.dv8tion.jda.api.entities.Activity;
 
 public class Botstartup {
 	public static void main(String[] args) throws LoginException {
-		JDABuilder jda =  JDABuilder.createDefault("MTAzMjc0MTc3MDI2NzcyMTcyOQ.Gnx46S.Q6PnS9pz_SsJvhg4x6_WVyddFkBTsjcEAlLryA");
+		JDABuilder jda =  JDABuilder.createDefault("TokenBot");
 		jda.setActivity(Activity.listening("!test"));
 		jda.setStatus(OnlineStatus.ONLINE);
 		jda.addEventListeners(new Commands());
