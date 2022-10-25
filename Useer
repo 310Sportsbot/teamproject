@@ -9,13 +9,23 @@ public class Useer {
 	private String name;
 	private ArrayList<Sport> recom;
 	private int step;
-	private boolean picked;
 	private Sport sport;
+	private int days ;
+	private String training;
 	
 	public Useer() {
 		step=0;
 		recom = new ArrayList<Sport>();
-		picked = false;
+		
+	}
+	
+	public String getTraining() {
+		return training;
+	}
+	
+	
+	public int getDays() {
+		return days;
 	}
 	
 	public int getStep() {
@@ -45,6 +55,10 @@ public class Useer {
 		
 			this.weight=weight;
 
+	}
+	
+	public void setDays(int days) {
+		this.days=days;
 	}
 	
 	public void setName(String name) {
@@ -78,13 +92,6 @@ public class Useer {
 			return recom.get(i);	
 	}
 	
-	public void setPicked(boolean picked) {
-		this.picked=picked;
-	}
-	
-	public boolean getPicked() {
-		return picked;
-	}
 	
 	public void setSport(Sport sport) {
 		this.sport=sport;
@@ -92,5 +99,9 @@ public class Useer {
 	
 	public Sport getSport() {
 		return this.sport;
+	}
+	
+	public void setTraining(String training) {
+		this.training=training;
 	}
 }
