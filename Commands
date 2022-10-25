@@ -13,7 +13,7 @@ public class Commands extends ListenerAdapter{
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		
 		String args = event.getMessage().getContentRaw();
-		
+
 		switch (user.getStep()) {
 		case 0:
 			if (!event.getAuthor().isBot()) {
@@ -21,47 +21,54 @@ public class Commands extends ListenerAdapter{
 				user.addStep();
 				EmbedBuilder greeting = new EmbedBuilder();
 				greeting.setTitle("⚽ Basic Information");
-				greeting.setDescription("Hello "+ event.getMember().getUser().getName()+"! I'm your Sports Coach! I'm going to help you to be more active and choose a sport! Please"
-						+ " follow the instructions since I'm not very good at understanding humans yet. Let's see what sport we can find for you! Are you short, average or tall? (If you want to reset the conversation type '~reset' at any time");
+				greeting.setDescription("Hello! I'm your Sports Coach! I'm going to help you to be more active and choose a sport! Please"
+						+ " follow the instructions since I'm not very good at understanding humans yet. Let's see what sport we can find for you! What's your name? //If you want to reset the conversation type '~reset'");
 				greeting.setColor(0x42b6f5);
 				event.getChannel().sendTyping();
 				event.getChannel().sendMessage(greeting.build()).queue();
 				user.setName(event.getMember().getUser().getName());
 				greeting.clear();
 				
-			}
-			else if (!args.toLowerCase().contains("hi")&&!args.toLowerCase().contains("hello")&&args.toLowerCase().contains("hey"))
-				event.getChannel().sendMessage("sorry, I only understand phrases containing hi, hey or hello").queue();
-			}
-			break;
-		case 1:
-			if (!event.getAuthor().isBot()) {
-			if ((args.toLowerCase().contains("short"))) {
-				user.setHeight("short");
-				event.getChannel().sendTyping();
-				user.addStep();
-				event.getChannel().sendMessage("Nice! And are you skinny, fit or chubby?").queue();
 				}
+			}
 			
-			else if ((args.toLowerCase().contains("average"))) {
-				user.setHeight("average");
+			break;
+			
+		case 1:
+			if (!event.getAuthor().isBot()&&!args.contains("~")) {
+				user.setName(args);
+				user.addStep();
+				event.getChannel().sendMessage("Hi "+user.getName()+"! How tall are you? (short, average or tall)").queue();
+			}
+		case 2:
+			if (!event.getAuthor().isBot()) {
+				if ((args.toLowerCase().contains("short"))) {
+					user.setHeight("short");
 					event.getChannel().sendTyping();
 					user.addStep();
-					event.getChannel().sendMessage("I'm impressed! And are you skinny, fit or chubby?").queue();	
+					event.getChannel().sendMessage("Nice! And are you skinny, fit or chubby?").queue();
+					}
+				
+				else if ((args.toLowerCase().contains("average"))) {
+					user.setHeight("average");
+						event.getChannel().sendTyping();
+						user.addStep();
+						event.getChannel().sendMessage("I'm impressed! And are you skinny, fit or chubby?").queue();	
+					}
+	
+				else if ((args.toLowerCase().contains("tall"))) {
+					user.setHeight("tall");
+					event.getChannel().sendTyping();
+					user.addStep();
+					event.getChannel().sendMessage("Awesome! And are you skinny, fit or chubby?").queue();
+					}
+				
+				//else if (!args.toLowerCase().contains("tall")&&!args.toLowerCase().contains("short")&&!args.toLowerCase().contains("average"))
+					//event.getChannel().sendMessage("sorry, I didn't understand you...please specify if you are 'short', 'average' or 'tall'").queue();
 				}
-
-			else if ((args.toLowerCase().contains("tall"))) {
-				user.setHeight("tall");
-				event.getChannel().sendTyping();
-				user.addStep();
-				event.getChannel().sendMessage("Awesome! And are you skinny, fit or chubby?").queue();
-				}
-			
-			else if (!(args.toLowerCase().contains("tall"))&&!(args.toLowerCase().contains("short")&&!(args.toLowerCase().contains("average"))))
-				event.getChannel().sendMessage("sorry, I didn't understand you...please specify if you are 'short', 'average' or 'tall'").queue();
-			}
 			break;
-		case 2:
+			
+		case 3:
 			if (!event.getAuthor().isBot()) {
 				
 			if ((args.toLowerCase().contains("skinny"))) {
@@ -83,31 +90,212 @@ public class Commands extends ListenerAdapter{
 				user.addStep();
 				event.getChannel().sendMessage("Amazing! let's see what you could do!").queue();
 				}
-			else if(!(args.toLowerCase().contains("chubby")&&!(args.toLowerCase().contains("fit")&&(args.toLowerCase().contains("fit")))))
-					event.getChannel().sendMessage("sorry, I didn't understand you...please specify if you are 'chubby', 'fit' or 'skinny'").queue();
+			else if(!(args.toLowerCase().contains("chubby")&&!(args.toLowerCase().contains("fit")&&(args.toLowerCase().contains("fit"))&&!args.contains("~"))))
+				event.getChannel().sendMessage("sorry, I didn't understand you...please specify if you are 'chubby', 'fit' or 'skinny'").queue();
 			}
 			break;
 			
-		case 3:
+		case 4:
 			event.getChannel().sendMessage("Maybe you should try "+user.getRecommendation(0).getName()+" ("
 					+ "type 'yes' if you like it and 'no' if you want another one)").queue();	
 			user.addStep();
 			break;
 			
-		case 4:
+		case 5:
 			
-			 if (args.equalsIgnoreCase("yes")&&!event.getAuthor().isBot()) {
+			 if (args.toLowerCase().contains("yes")&&!event.getAuthor().isBot()) {
 				 	user.setSport(user.getRecommendation(0));
+				 	user.addStep();
 					event.getChannel().sendMessage("Congratulations for choosing "+ user.getRecommendation(0).getName()+" "+user.getName()+"! Let's get working on your training routine!").queue();
-				}
-				else if (args.equalsIgnoreCase("no")&&!event.getAuthor().isBot()) { 
+					event.getChannel().sendMessage("How much time do you have available to train? (times per week as a number)").queue();
+			 	}
+				else if (args.toLowerCase().contains("no")&&!event.getAuthor().isBot()) { 
 					user.removeFirstRecommendation();
 					user.removeStep();
 					event.getChannel().sendMessage("mmmh... let's see").queue();
 					}
+				else if (!args.toLowerCase().contains("yes")&&!args.toLowerCase().contains("no")&&!event.getAuthor().isBot()&&!args.contains("~"))
+					event.getChannel().sendMessage("sorry, I only understand phrases containing 'yes' or 'no'").queue();
 			 break;	
-		}
+			 
+		case 6: 
+			if (args.contains("0")&&!event.getAuthor().isBot()) {
+				 event.getChannel().sendMessage("Well... this is not going to work then :( try again or type ~reset").queue();
+				 
+			 }
+			else if (args.contains("1")&&!event.getAuthor().isBot()) {
+				 user.setDays(1);
+				 user.addStep();
+				 event.getChannel().sendMessage("Perfect!").queue();
+				 event.getChannel().sendMessage("Say thanks to get your training routine").queue();
+			 }
+			 
+			 else if (args.contains("2")&&!event.getAuthor().isBot()) {
+				 user.setDays(2);
+				 user.addStep();
+				 event.getChannel().sendMessage("Perfect!").queue();
+				 event.getChannel().sendMessage("Say thanks to get your training routine").queue();
+			 }
+			 
+			 else if (args.contains("3")&&!event.getAuthor().isBot()) {
+				 user.setDays(3);
+				 user.addStep();
+				 event.getChannel().sendMessage("Perfect!").queue();
+				 event.getChannel().sendMessage("Say thanks to get your training routine").queue();
+			 }
+			 
+			 else if (args.contains("4")&&!event.getAuthor().isBot()) {
+				 user.setDays(4);
+				 user.addStep();
+				 event.getChannel().sendMessage("Perfect!").queue();
+				 event.getChannel().sendMessage("Say thanks to get your training routine").queue();
+			 }
+			 
+			 else if (args.contains("5")&&!event.getAuthor().isBot()) {
+				 user.setDays(5);
+				 user.addStep();
+				 event.getChannel().sendMessage("Perfect!").queue();
+				 event.getChannel().sendMessage("Say thanks to get your training routine").queue();
+			 }
+			 
+			 else if (args.contains("6")&&!event.getAuthor().isBot()) {
+				 user.setDays(6);
+				 user.addStep();
+				 event.getChannel().sendMessage("Perfect!").queue();
+				 event.getChannel().sendMessage("Say thanks to get your training routine").queue();
+			 }
+			 
+			 else if (args.contains("7")&&!event.getAuthor().isBot()) {
+				 user.setDays(7);
+				 user.addStep();
+				 event.getChannel().sendMessage("Perfect!").queue();
+				 event.getChannel().sendMessage("Say thanks to get your training routine").queue();
+			 }
+			 else if(!event.getAuthor().isBot()&&!isNumeric(args))
+				 event.getChannel().sendMessage("sorry, please input a number between 1 and 7").queue();
+		
 			
+			 break;
+			 
+		case 7:
+			if (!event.getAuthor().isBot()&&args.toLowerCase().contains("thanks")) {
+				
+			if (user.getSport().getName()=="Muay Thai") {
+				user.addStep();
+				user.setTraining("You should start with cardio! At least 30 minutes of running, "+ user.getDays()+ " days per week!");
+				 event.getChannel().sendMessage(user.getTraining()).queue();
+				 
+			 }
+			
+			else if (user.getSport().getName()=="Swimming") {
+				user.addStep();
+				user.setTraining("You should start with cardio! At least 45 minutes of running, "+ user.getDays()+ " days per week! And breathing practice!");
+				 event.getChannel().sendMessage(user.getTraining()).queue();
+				 
+			 }
+			 
+			 else if (user.getSport().getName()=="Boxing") {
+				 user.addStep();
+				 user.setTraining("Time to get that rope spinning! At least 20 minutes, "+ user.getDays()+ " per week!");
+				 event.getChannel().sendMessage(user.getTraining()).queue();
+			 }
+			 
+			 else if (user.getSport().getName()=="Mixed Martial Arts") {
+				 user.addStep();
+				 user.setTraining("Start by doing 50 jumping jacks and squads, "+ user.getDays()+ " per week!");
+				 event.getChannel().sendMessage(user.getTraining()).queue();
+			 }
+			 
+			 else if (user.getSport().getName()=="Football") {
+				 user.addStep();
+				 user.setTraining("Do burpees and pull-ups! At least 30, "+ user.getDays()+ " per week each!");
+				 event.getChannel().sendMessage(user.getTraining()).queue();
+			 }
+			 
+			 else if (user.getSport().getName()=="American Football") {
+				 user.addStep();
+				 user.setTraining("Push ups! Bench press! And a good diet!");
+				 event.getChannel().sendMessage(user.getTraining()).queue();
+			 }
+			 
+			 else if (user.getSport().getName()=="Sumo") {
+				 user.addStep();
+				 user.setTraining("Just eat! 24/7");
+				 event.getChannel().sendMessage(user.getTraining()).queue();
+			 }
+			 
+			 else if (user.getSport().getName()=="Climbing") {
+				 user.addStep();
+				 user.setTraining("Push-ups and pull-ups with your finger tips! At least 15 each, "+ user.getDays()+ " per week!");
+				 event.getChannel().sendMessage(user.getTraining()).queue();
+			 }
+			
+			 else if(user.getSport().getName()=="Baseball") {
+				 user.addStep();
+				 user.setTraining("Do wall bounce fielding! It's the best way to start!");
+				 event.getChannel().sendMessage(user.getTraining()).queue();
+			 }
+			
+			 else if (user.getSport().getName()=="Basketball") {
+				 user.addStep();
+				 user.setTraining("Get a box and do seated box jumps! "+ user.getDays()+ " per week!");
+				 event.getChannel().sendMessage(user.getTraining()).queue();
+			 }
+			 
+			 else if (user.getSport().getName()=="Snowboard") {
+				 user.addStep();
+				 user.setTraining("Get a longboard and hit the streets! "+ user.getDays()+ " per week!");
+				 event.getChannel().sendMessage(user.getTraining()).queue();
+			 }
+			
+			 else if(user.getSport().getName()=="Weight Lifting") {
+				 user.addStep();
+				 user.setTraining("Best way to start is doing basic calisthenics!");
+				 event.getChannel().sendMessage(user.getTraining()).queue();
+			 }
+			
+			 else if (user.getSport().getName()=="Skiing") {
+				 user.addStep();
+				 user.setTraining("Train your balance! "+ user.getDays()+ " per week!");
+				 event.getChannel().sendMessage(user.getTraining()).queue();
+			 }
+			
+			 else if(user.getSport().getName()=="Cycling") {
+				 user.addStep();
+				 user.setTraining("Best to train the lengs is jumpin rope!");
+				 event.getChannel().sendMessage(user.getTraining()).queue();
+			 }
+			
+			 else if(user.getSport().getName()=="Marathons") {
+				 user.addStep();
+				 user.setTraining("Run Forrest! Run!");
+				 event.getChannel().sendMessage(user.getTraining()).queue();
+			 }
+			
+			 else if (user.getSport().getName()=="Mountain Biking") {
+				 user.addStep();
+				 user.setTraining("Train your balance and legs! "+ user.getDays()+ " per week!");
+				 event.getChannel().sendMessage(user.getTraining()).queue();
+			 }
+				 
+			 else if (user.getSport().getName()=="Rugby") {
+				 user.addStep();
+				 user.setTraining("Push ups, pull ups, squads and high protein diet!");
+				
+				event.getChannel().sendMessage(user.getTraining()).queue();
+			 }
+			}
+			
+			 break;
+			 
+		case 8:
+			event.getChannel().sendMessage("Goodbye! And thanks for your patience. If you want to see a summary of your info just type '~data', and ~reset to termite the program!").queue();
+			user.addStep();
+			break;
+			
+		case 9:
+			break;
+		}
 		
 		if (user.getHeight()=="tall"&&user.getWeight()=="chubby") {
 			user.addRecommendation(new Sport("American Football"));
@@ -163,14 +351,41 @@ public class Commands extends ListenerAdapter{
 			user.addRecommendation(new Sport("Skiing"));
 			}
 		
-		if(args.equalsIgnoreCase("~reset")) {
+		if (args.equalsIgnoreCase("~reset")) {
+			event.getChannel().sendMessage("Done!");
 			user.getRecommendationList().clear();
+			user.setDays(0);
+			user.setHeight("");
+			user.setName("");
+			user.setSport(null);
+			user.setWeight(null);
 			user.setStep(0);
 		}
-			
 		
-		
-	}
+		else if(args.equalsIgnoreCase("~data")) {
+			try {
+			EmbedBuilder greeting = new EmbedBuilder();
+			greeting.setTitle(user.getName());
+			greeting.setDescription("You are "+ user.getHeight()+" and "+ user.getWeight()+" for the moment, chose "+user.getSport().getName()+ ", and my training advise is: "+user.getTraining());
+			greeting.setColor(0x42b6f5);
+			event.getChannel().sendTyping();
+			event.getChannel().sendMessage(greeting.build()).queue();
+			}catch (Exception e) {
+				event.getChannel().sendMessage("Missing data for now...");
+				}
+			}
+		}
 	
+	
+	public static boolean isNumeric(String str) { 
+		  try {  
+		    if ( Double.parseDouble(str)<8)
+		    	return true;
+		    
+		    else return false;
+		  } catch(NumberFormatException e){  
+		    return false;  
+		  	}  
+	}
 }
 	
