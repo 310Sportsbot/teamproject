@@ -1,5 +1,7 @@
 package Main;
 
+
+import java.net.URL;
 import java.util.ArrayList;
 
 public class Useer {
@@ -12,6 +14,7 @@ public class Useer {
 	private Sport sport;
 	private int days ;
 	private String training;
+	private URL myURL;
 	
 	public Useer() {
 		step=0;
@@ -30,6 +33,10 @@ public class Useer {
 	
 	public int getStep() {
 		return step;
+	}
+	
+	public URL getVideo() {
+		return myURL;
 	}
 	
 	public void addStep() {
@@ -104,4 +111,9 @@ public class Useer {
 	public void setTraining(String training) {
 		this.training=training;
 	}
+	
+	public void setVideo(URL myURL) {
+		this.myURL = myURL;
+	}
+	
 }
