@@ -1,5 +1,8 @@
 package Main;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -183,117 +186,219 @@ public class Commands extends ListenerAdapter{
 			if (user.getSport().getName()=="Muay Thai") {
 				user.addStep();
 				user.setTraining("You should start with cardio! At least 30 minutes of running, "+ user.getDays()+ " days per week!");
-				 event.getChannel().sendMessage(user.getTraining()).queue();
+				 try {
+						user.setVideo(new URL("https://www.youtube.com/watch?v=vXv6uvrUjKo"));
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					}
+					event.getChannel().sendMessage(user.getTraining()).queue();
+					event.getChannel().sendMessage(user.getVideo().toString()).queue();
 				 
 			 }
 			
 			else if (user.getSport().getName()=="Swimming") {
 				user.addStep();
 				user.setTraining("You should start with cardio! At least 45 minutes of running, "+ user.getDays()+ " days per week! And breathing practice!");
-				 event.getChannel().sendMessage(user.getTraining()).queue();
+				 try {
+						user.setVideo(new URL("https://www.youtube.com/watch?v=R_LK7uu2-oQ"));
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					}
+					event.getChannel().sendMessage(user.getTraining()).queue();
+					event.getChannel().sendMessage(user.getVideo().toString()).queue();
 				 
 			 }
 			 
 			 else if (user.getSport().getName()=="Boxing") {
 				 user.addStep();
 				 user.setTraining("Time to get that rope spinning! At least 20 minutes, "+ user.getDays()+ " per week!");
-				 event.getChannel().sendMessage(user.getTraining()).queue();
+				 try {
+						user.setVideo(new URL("https://www.youtube.com/watch?v=XIHvfwYVy4A"));
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					}
+					event.getChannel().sendMessage(user.getTraining()).queue();
+					event.getChannel().sendMessage(user.getVideo().toString()).queue();
 			 }
 			 
 			 else if (user.getSport().getName()=="Mixed Martial Arts") {
 				 user.addStep();
 				 user.setTraining("Start by doing 50 jumping jacks and squads, "+ user.getDays()+ " per week!");
-				 event.getChannel().sendMessage(user.getTraining()).queue();
+				 try {
+						user.setVideo(new URL("https://www.youtube.com/watch?v=8-aI8Fp2bPU"));
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					}
+					event.getChannel().sendMessage(user.getTraining()).queue();
+					event.getChannel().sendMessage(user.getVideo().toString()).queue();
 			 }
 			 
 			 else if (user.getSport().getName()=="Football") {
 				 user.addStep();
 				 user.setTraining("Do burpees and pull-ups! At least 30, "+ user.getDays()+ " per week each!");
-				 event.getChannel().sendMessage(user.getTraining()).queue();
+				 try {
+						user.setVideo(new URL("https://www.youtube.com/watch?v=lAuZL_bgXs8"));
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					}
+					event.getChannel().sendMessage(user.getTraining()).queue();
+					event.getChannel().sendMessage(user.getVideo().toString()).queue();
 			 }
 			 
 			 else if (user.getSport().getName()=="American Football") {
 				 user.addStep();
 				 user.setTraining("Push ups! Bench press! And a good diet!");
-				 event.getChannel().sendMessage(user.getTraining()).queue();
+				 try {
+						user.setVideo(new URL("https://www.youtube.com/watch?v=siNmDqGMhqM"));
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					}
+					event.getChannel().sendMessage(user.getTraining()).queue();
+					event.getChannel().sendMessage(user.getVideo().toString()).queue();
 			 }
 			 
 			 else if (user.getSport().getName()=="Sumo") {
 				 user.addStep();
 				 user.setTraining("Just eat! 24/7");
-				 event.getChannel().sendMessage(user.getTraining()).queue();
+				 try {
+						user.setVideo(new URL("https://www.youtube.com/watch?v=qRNjVwRaaLg"));
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					}
+					event.getChannel().sendMessage(user.getTraining()).queue();
+					event.getChannel().sendMessage(user.getVideo().toString()).queue();
 			 }
 			 
 			 else if (user.getSport().getName()=="Climbing") {
 				 user.addStep();
 				 user.setTraining("Push-ups and pull-ups with your finger tips! At least 15 each, "+ user.getDays()+ " per week!");
-				 event.getChannel().sendMessage(user.getTraining()).queue();
+				 try {
+						user.setVideo(new URL("https://www.youtube.com/watch?v=NjmU34zhXvA"));
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					}
+					event.getChannel().sendMessage(user.getTraining()).queue();
+					event.getChannel().sendMessage(user.getVideo().toString()).queue();
 			 }
 			
 			 else if(user.getSport().getName()=="Baseball") {
 				 user.addStep();
 				 user.setTraining("Do wall bounce fielding! It's the best way to start!");
-				 event.getChannel().sendMessage(user.getTraining()).queue();
+				 try {
+						user.setVideo(new URL("https://www.youtube.com/watch?v=aMqbi7hmWJk"));
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					}
+					event.getChannel().sendMessage(user.getTraining()).queue();
+					event.getChannel().sendMessage(user.getVideo().toString()).queue();
 			 }
 			
 			 else if (user.getSport().getName()=="Basketball") {
 				 user.addStep();
 				 user.setTraining("Get a box and do seated box jumps! "+ user.getDays()+ " per week!");
-				 event.getChannel().sendMessage(user.getTraining()).queue();
+				 try {
+						user.setVideo(new URL("https://www.youtube.com/watch?v=HRGU3igMytM"));
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					}
+					event.getChannel().sendMessage(user.getTraining()).queue();
+					event.getChannel().sendMessage(user.getVideo().toString()).queue();
 			 }
 			 
 			 else if (user.getSport().getName()=="Snowboard") {
 				 user.addStep();
 				 user.setTraining("Get a longboard and hit the streets! "+ user.getDays()+ " per week!");
-				 event.getChannel().sendMessage(user.getTraining()).queue();
+				 try {
+						user.setVideo(new URL("https://www.youtube.com/watch?v=SfekYZS00-Y"));
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					}
+					event.getChannel().sendMessage(user.getTraining()).queue();
+					event.getChannel().sendMessage(user.getVideo().toString()).queue();
 			 }
 			
-			 else if(user.getSport().getName()=="Weight Lifting") {
+			 else if(user.getSport().getName()=="Yoga") {
 				 user.addStep();
-				 user.setTraining("Best way to start is doing basic calisthenics!");
-				 event.getChannel().sendMessage(user.getTraining()).queue();
+				 user.setTraining("Best way to start is doing basic core excercises!");
+				 try {
+						user.setVideo(new URL("https://www.youtube.com/watch?v=Eml2xnoLpYE"));
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					}
+					event.getChannel().sendMessage(user.getTraining()).queue();
+					event.getChannel().sendMessage(user.getVideo().toString()).queue();
 			 }
 			
 			 else if (user.getSport().getName()=="Skiing") {
 				 user.addStep();
 				 user.setTraining("Train your balance! "+ user.getDays()+ " per week!");
-				 event.getChannel().sendMessage(user.getTraining()).queue();
+				 try {
+						user.setVideo(new URL("https://www.youtube.com/watch?v=bEAPfOB-ZDw"));
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					}
+					event.getChannel().sendMessage(user.getTraining()).queue();
+					event.getChannel().sendMessage(user.getVideo().toString()).queue();
 			 }
 			
 			 else if(user.getSport().getName()=="Cycling") {
 				 user.addStep();
 				 user.setTraining("Best to train the lengs is jumpin rope!");
-				 event.getChannel().sendMessage(user.getTraining()).queue();
+				 try {
+						user.setVideo(new URL("https://www.youtube.com/watch?v=sFK5QR3hGrA"));
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					}
+					event.getChannel().sendMessage(user.getTraining()).queue();
+					event.getChannel().sendMessage(user.getVideo().toString()).queue();
 			 }
 			
 			 else if(user.getSport().getName()=="Marathons") {
 				 user.addStep();
 				 user.setTraining("Run Forrest! Run!");
-				 event.getChannel().sendMessage(user.getTraining()).queue();
+				 try {
+						user.setVideo(new URL("https://www.youtube.com/watch?v=XsRD2gU1LaA"));
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					}
+					event.getChannel().sendMessage(user.getTraining()).queue();
+					event.getChannel().sendMessage(user.getVideo().toString()).queue();
 			 }
 			
 			 else if (user.getSport().getName()=="Mountain Biking") {
 				 user.addStep();
 				 user.setTraining("Train your balance and legs! "+ user.getDays()+ " per week!");
-				 event.getChannel().sendMessage(user.getTraining()).queue();
+				 try {
+						user.setVideo(new URL("https://www.youtube.com/watch?v=EzlfqTH9dCQ"));
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					}
+					event.getChannel().sendMessage(user.getTraining()).queue();
+					event.getChannel().sendMessage(user.getVideo().toString()).queue();
 			 }
 				 
 			 else if (user.getSport().getName()=="Rugby") {
 				 user.addStep();
 				 user.setTraining("Push ups, pull ups, squads and high protein diet!");
-				
+				 try {
+					user.setVideo(new URL("https://www.youtube.com/watch?v=74NCzjf_caM"));
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				}
 				event.getChannel().sendMessage(user.getTraining()).queue();
+				event.getChannel().sendMessage(user.getVideo().toString()).queue();
 			 }
 			}
 			
 			 break;
 			 
 		case 8:
-			event.getChannel().sendMessage("Goodbye! And thanks for your patience. If you want to see a summary of your info just type '~data', and ~reset to termite the program!").queue();
-			user.addStep();
+			
 			break;
 			
 		case 9:
+			event.getChannel().sendMessage("Goodbye! And thanks for your patience. If you want to see a summary of your info just type '~data', and ~reset to termite the program!").queue();
+			user.addStep();
 			break;
 		}
 		
@@ -388,4 +493,6 @@ public class Commands extends ListenerAdapter{
 		  	}  
 	}
 }
+	
+	
 	
