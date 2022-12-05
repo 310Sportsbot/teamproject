@@ -20,4 +20,6 @@ This class is a template to create an object representing training suggestions
 
 The User interaction interface is through discord, the program connects to a specific bot in discord. 
 
+The topics are sports recommendations, training, and diet.
+
 (For the TA to evaluate the chatbot, we have to add them to a discord chat and give them the token for the bot, which can not be published on github)
