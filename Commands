@@ -1,22 +1,26 @@
 package Main;
 
+
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import opennlp.tools.stemmer.PorterStemmer;
+
 
 public class Commands extends ListenerAdapter{
 	
 	Useer user = new Useer();
 	
 	
+
+	
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		
+      
 		String args = event.getMessage().getContentRaw();
-
 		switch (user.getStep()) {
 		case 0:
 			if (!event.getAuthor().isBot()) {
@@ -38,11 +42,13 @@ public class Commands extends ListenerAdapter{
 			break;
 			
 		case 1:
+			
 			if (!event.getAuthor().isBot()&&!args.contains("~")) {
 				user.setName(args);
 				user.addStep();
 				event.getChannel().sendMessage("Hi "+user.getName()+"! How tall are you? (short, average or tall)").queue();
 			}
+			
 		case 2:
 			if (!event.getAuthor().isBot()) {
 				if ((args.toLowerCase().contains("short"))) {
@@ -65,9 +71,6 @@ public class Commands extends ListenerAdapter{
 					user.addStep();
 					event.getChannel().sendMessage("Awesome! And are you skinny, fit or chubby?").queue();
 					}
-				
-				//else if (!args.toLowerCase().contains("tall")&&!args.toLowerCase().contains("short")&&!args.toLowerCase().contains("average"))
-					//event.getChannel().sendMessage("sorry, I didn't understand you...please specify if you are 'short', 'average' or 'tall'").queue();
 				}
 			break;
 			
@@ -130,49 +133,49 @@ public class Commands extends ListenerAdapter{
 				 user.setDays(1);
 				 user.addStep();
 				 event.getChannel().sendMessage("Perfect!").queue();
-				 event.getChannel().sendMessage("Say thanks to get your training routine").queue();
+				 event.getChannel().sendMessage("Are you ready to get your training routine?").queue();
 			 }
 			 
 			 else if (args.contains("2")&&!event.getAuthor().isBot()) {
 				 user.setDays(2);
 				 user.addStep();
 				 event.getChannel().sendMessage("Perfect!").queue();
-				 event.getChannel().sendMessage("Say thanks to get your training routine").queue();
+				 event.getChannel().sendMessage("Are you ready to get your training routine?").queue();
 			 }
 			 
 			 else if (args.contains("3")&&!event.getAuthor().isBot()) {
 				 user.setDays(3);
 				 user.addStep();
 				 event.getChannel().sendMessage("Perfect!").queue();
-				 event.getChannel().sendMessage("Say thanks to get your training routine").queue();
+				 event.getChannel().sendMessage("Are you ready to get your training routine?").queue();
 			 }
 			 
 			 else if (args.contains("4")&&!event.getAuthor().isBot()) {
 				 user.setDays(4);
 				 user.addStep();
 				 event.getChannel().sendMessage("Perfect!").queue();
-				 event.getChannel().sendMessage("Say thanks to get your training routine").queue();
+				 event.getChannel().sendMessage("Are you ready to get your training routine?").queue();
 			 }
 			 
 			 else if (args.contains("5")&&!event.getAuthor().isBot()) {
 				 user.setDays(5);
 				 user.addStep();
 				 event.getChannel().sendMessage("Perfect!").queue();
-				 event.getChannel().sendMessage("Say thanks to get your training routine").queue();
+				 event.getChannel().sendMessage("Say thanks to get your training routine?").queue();
 			 }
 			 
 			 else if (args.contains("6")&&!event.getAuthor().isBot()) {
 				 user.setDays(6);
 				 user.addStep();
 				 event.getChannel().sendMessage("Perfect!").queue();
-				 event.getChannel().sendMessage("Say thanks to get your training routine").queue();
+				 event.getChannel().sendMessage("Say thanks to get your training routine?").queue();
 			 }
 			 
 			 else if (args.contains("7")&&!event.getAuthor().isBot()) {
 				 user.setDays(7);
 				 user.addStep();
 				 event.getChannel().sendMessage("Perfect!").queue();
-				 event.getChannel().sendMessage("Say thanks to get your training routine").queue();
+				 event.getChannel().sendMessage("Say thanks to get your training routine?").queue();
 			 }
 			 else if(!event.getAuthor().isBot()&&!isNumeric(args))
 				 event.getChannel().sendMessage("sorry, please input a number between 1 and 7").queue();
@@ -181,7 +184,7 @@ public class Commands extends ListenerAdapter{
 			 break;
 			 
 		case 7:
-			if (!event.getAuthor().isBot()&&args.toLowerCase().contains("thanks")) {
+			if (!event.getAuthor().isBot()&&args.toLowerCase().contains("yes")) {
 				
 			if (user.getSport().getName()=="Muay Thai") {
 				user.addStep();
@@ -389,14 +392,30 @@ public class Commands extends ListenerAdapter{
 				event.getChannel().sendMessage(user.getVideo().toString()).queue();
 			 }
 			}
+			else if (args.toLowerCase().contains("no"))
+				event.getChannel().sendMessage("see ya later then!");
 			
 			 break;
 			 
 		case 8:
-			
+			event.getChannel().sendMessage("Would you like any other recommendations? Like a diet fo example? ").queue();
+				user.addStep();
 			break;
 			
 		case 9:
+			if (!event.getAuthor().isBot()) {
+				if (args.compareToIgnoreCase("yes")==1) {
+					event.getChannel().sendMessage("Awesome!").queue();
+			event.getChannel().sendMessage("Doctors recommend to have a balanced diet. I have some usefull resources that you could use!").queue();
+			event.getChannel().sendMessage("https://www.uwhealth.org/news/eating-for-peak-athletic-performance");
+			user.addStep();
+			}
+				else user.addStep();
+			}
+			break;
+		
+			
+		case 10:
 			event.getChannel().sendMessage("Goodbye! And thanks for your patience. If you want to see a summary of your info just type '~data', and ~reset to termite the program!").queue();
 			user.addStep();
 			break;
@@ -493,6 +512,3 @@ public class Commands extends ListenerAdapter{
 		  	}  
 	}
 }
-	
-	
-	
